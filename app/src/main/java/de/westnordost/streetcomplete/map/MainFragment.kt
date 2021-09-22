@@ -482,7 +482,17 @@ class MainFragment : Fragment(R.layout.fragment_main),
          */
         closeBottomSheet()
 
-        lifecycleScope.launch { questController.createNote(note, imagePaths, position) }
+        /// debug!!!
+        val cam = mapFragment.cameraPosition!!
+        val debugNote = note + "\n\nDEBUG INFO:\n"+
+            "map view: lat ${cam.position.latitude}, lon ${cam.position.longitude}, rot ${cam.rotation}, tilt ${cam.tilt}\n" +
+            "note marker on screen: ${screenPosition.x}, ${screenPosition.y}\n" +
+            "map view on screen: ${mapPosition.x}, ${mapPosition.y}\n" +
+            "note marker on map view: ${notePosition.x}, ${notePosition.y}\n" +
+            "note marker: lat ${position.latitude} lon ${position.longitude}\n"
+        /// debug!!!
+
+        lifecycleScope.launch { questController.createNote(debugNote, imagePaths, position) }
 
         listener?.onCreatedNote(screenPosition)
         showMarkerSolvedAnimation(R.drawable.ic_quest_create_note, PointF(screenPosition))
